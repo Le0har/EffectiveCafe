@@ -1,0 +1,13 @@
+.button-style {
+    display: inline-block;
+    padding: 30px 50px;
+    background: #accf10;
+    border: 1px solid #000; 
+    color: #333;
+    text-decoration: none;
+    text-align: center;
+  }
+  
+  .button-style:hover, .button-style:focus {
+    background: #e2e2f2; /* Эффект при наведении — дополнительное оформление */
+  }

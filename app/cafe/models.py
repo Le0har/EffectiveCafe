@@ -1,7 +1,7 @@
 from django.db import models
 
 
-STATUS = (
+STATUSES = (
     ('waiting', 'в ожидании'),
     ('paid', 'оплачено'),
     ('ready', 'готово'),
@@ -24,8 +24,8 @@ class Order(models.Model):
     table_number = models.IntegerField(verbose_name='Номер стола')
     items = models.ManyToManyField(OrderItem, related_name='orders', verbose_name='Блюда')
     # total_price = models.DecimalField(default=0, max_digits=8, decimal_places=2)
-    status = models.CharField(default='waiting', choices=STATUS, verbose_name='Статус')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
+    status = models.CharField(default='waiting', choices=STATUSES, verbose_name='Статус')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
 
     class Meta:
         verbose_name = 'Заказ'

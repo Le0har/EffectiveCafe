@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Home page Cafe
+    Home page Cafeteriy
 {% endblock %}
 
 {% block content %}
+{% load static %}
 
-    <h1>Главная страница кафетерия</h1>
+    <h1>Добро пожаловать в Наш кафетерий</h1>
+
+    <img src="{% static 'images/home.webp' %}">
+
+    <div>
+        <br><br>
+        <a href="{% url 'cafe:order-create' %}" class="button-style">Создать заказ</a>
+    </div>
 
 {% endblock %}
