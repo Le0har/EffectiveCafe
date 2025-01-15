@@ -18,4 +18,4 @@ class OrderItemAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'price']
     list_display_links = ['id', 'name']
     ordering = ['name']
-    list_per_page = 10
+    list_per_page = 20

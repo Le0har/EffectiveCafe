@@ -1,0 +1,26 @@
+{% extends 'cafe/base.html' %}
+
+{% block title %}
+    Главная
+{% endblock %}
+
+{% block content %}
+{% load static %}
+    <div class="container">
+        <!-- Title -->
+        <div class="container text-center my-title">
+            <div class="row">
+                <h1>Добро пожаловать в Наш кафетерий</h1>
+            </div>
+        </div>
+        <!-- Title -->
+
+        <img src="{% static 'images/home.webp' %}">
+
+        <div>
+            <br><br>
+            <a href="{% url 'cafe:order-create' %}" class="button-style">Создать заказ</a>
+        </div>
+    </div>
+
+{% endblock %}

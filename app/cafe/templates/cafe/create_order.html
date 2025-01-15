@@ -1,0 +1,25 @@
+{% extends 'cafe/base.html' %} 
+
+{% block title %}
+    Создать заказ
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Создание заказа</h1>
+        <div>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <br>
+                <button type="submit">Создать</button>
+            </form>
+        </div>
+        <div>
+            <br>
+            <a href="{% url 'cafe:order-list' %}">Обратно к списку заказов</a>
+        </div>
+    </div>
+
+{% endblock %}

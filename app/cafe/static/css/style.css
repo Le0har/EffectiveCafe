@@ -1,13 +1,65 @@
-.button-style {
-    display: inline-block;
-    padding: 30px 50px;
-    background: #accf10;
-    border: 1px solid #000; 
-    color: #333;
-    text-decoration: none;
-    text-align: center;
-  }
-  
-  .button-style:hover, .button-style:focus {
-    background: #e2e2f2; /* Эффект при наведении — дополнительное оформление */
-  }
+html {
+    font-size: 16px;
+}
+
+body {
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+    min-width: 320px;
+}
+
+img {
+    min-width: 100%;
+    height: auto;
+}
+
+section {
+    padding: 50px 0;
+}
+
+a {
+    color: #111;
+}
+
+a:hover {
+    color: #555;
+}
+
+/* header */
+.navbar-nav {
+    font-weight: 500;
+    font-size: 22px;
+}
+
+.navbar-nav .dropdown-menu {
+    width: 100%;
+}
+
+.top-menu li a::after {
+    content: '';
+    display: block;
+    width: 100%;
+    background-color: #111;
+    height: 1px;
+    transition: all 0.3s;
+    transform: scale(0);
+}
+
+.top-menu li a:hover::after {
+    transform: scale(1);
+}
+/* header */
+
+/* title */
+.my-title {
+    padding-top: 50px;
+}
+/* title */
+
+/* footer */
+.footer {
+    background-color: #dbdd5b;
+    font-size: 18px;
+}
+/* footer */

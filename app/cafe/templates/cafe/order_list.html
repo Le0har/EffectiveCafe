@@ -1,0 +1,34 @@
+{% extends 'cafe/base.html' %}
+
+{% block title %}
+    Список заказов
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Заказы:</h1>
+        <ul>
+            {% for order in orders %}
+                <li>
+                    <p>Номер стола: {{ order.table_number }}</p>
+                    <p>Блюда:</p>
+                    <ul>   
+                        {% for item in order.items.all %}
+                            <li>
+                                <p>{{ item.name }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <p>Статус: {{ order.get_status_display }}</p>
+                    <p>Дата создания: {{ order.created_at }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div>
+            <br><br>
+            <a href="{% url 'cafe:order-create' %}" class="button-style">Создать заказ</a>
+        </div>
+    </div>
+
+{% endblock %}
