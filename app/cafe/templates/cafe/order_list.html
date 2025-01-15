@@ -6,29 +6,56 @@
 
 {% block content %}
     <div class="container">
-        <h1>Заказы:</h1>
-        <ul>
-            {% for order in orders %}
-                <li>
-                    <p>Номер стола: {{ order.table_number }}</p>
-                    <p>Блюда:</p>
-                    <ul>   
-                        {% for item in order.items.all %}
-                            <li>
-                                <p>{{ item.name }}</p>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    <p>Статус: {{ order.get_status_display }}</p>
-                    <p>Дата создания: {{ order.created_at }}</p>
-                </li>
-            {% endfor %}
-        </ul>
+        <section>
+            <div class="row">
+                <div class="col text-center">
+                    <h1>Список заказов</h1>
+                    <hr>
+                </div>
+            </div>
+ 
+            <div class="row">
+                <div class="col">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Номер стола</th>
+                            <th scope="col">Блюда</th>
+                            <th scope="col">Статус</th>
+                            <th scope="col">Дата создания</th>
+                            <th scope="col">Стоимость</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'cafe:order-detail' order.id %}">{{ order.id }}</a>
+                                    <a href="{% url 'cafe:order-detail' order.id %}">
+                                    <i style="color: blue;" class="fa fa-edit"></i></a>
+                                </td>
+                                <td scope="row">{{ order.table_number }}</td>
 
-        <div>
-            <br><br>
-            <a href="{% url 'cafe:order-create' %}" class="button-style">Создать заказ</a>
-        </div>
+                                <td scope="row">
+                                    {% for item in order.items.all %}
+                                        <p>{{ item }}</p>
+                                    {% endfor %}
+                                </td>
+
+                                <td>{{ order.get_status_display }}</td>
+                                <td>{{ order.created_at | date:"d F Y H:i:s" }}</td>
+                                <td>Какая-то цена</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div align="right">
+                        <i style="color: gray;">Всего заказов: {{ orders.count }}</i>
+                    </div>
+                </div>
+            </div>    
+        </section>
     </div>
 
 {% endblock %}

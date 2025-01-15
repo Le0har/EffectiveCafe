@@ -1,0 +1,28 @@
+{% extends 'cafe/base.html' %} 
+
+{% block title %}
+    Создание заказа
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <section>
+            <h1>Создание заказа</h1>
+            <br>
+            <div>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+                    {% for food in foods %}
+                        <p><input type="checkbox" name="{{ food.name }}" value="{{ food.price }}"> 
+                        {{ food.name }} - {{ food.price }}р.</p>
+                    {% endfor %}
+
+                    <input type="submit" class="btn btn-outline-success btn-block" value="Создать"/>
+                </form>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
