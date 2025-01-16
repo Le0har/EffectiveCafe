@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Order, OrderItem
-from .forms import OrderForm
+from .forms import OrderForm, OrderEditForm
 
 
 def index_page(request):
@@ -50,7 +50,19 @@ def order_find(request):
 
 
 def order_edit(request, order_id):
-    pass
+    order = get_object_or_404(Order, id=order_id)
+    if request.method == 'POST':
+        data_form = request.POST
+        order.status = data_form['status']
+        order.save()
+        return redirect('cafe:order-list')
+    else:
+        form = OrderEditForm(instance=order)
+    context = {
+        'order': order,
+        'form': form,
+    }
+    return render(request, 'cafe/order_edit.html', context)
 
 
 def order_delete(request, order_id):

@@ -1,0 +1,42 @@
+{% extends 'cafe/base.html' %} 
+
+{% block title %}
+    Редактирование статуса заказа
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <section>
+            <div class="row">
+                <div class="col text-center">
+                    <h1>Редактирование статуса заказа</h1>
+                    <hr>
+                </div>
+            </div>
+            <br>
+            <ul>
+                <li>
+                    <p>ID: {{ order.id }}</p>
+                    <p>Номер стола: {{ order.table_number }}</p>
+                    <p>Блюда:</p>
+                    <ul>   
+                        {% for item in order.items.all %}
+                            <li>
+                                <p>{{ item.name }} - {{ item.price }}р.</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    <p>Дата создания: {{ order.created_at }}</p>
+                    <p>Стоимость: Какая-то цена</p>
+                </li>
+            </ul>
+                <br>
+                <input type="submit" class="btn btn-outline-success btn-block" value="Сохранить статус"/>
+            </form>
+        </section>
+    </div>
+
+{% endblock %}

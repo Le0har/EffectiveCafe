@@ -9,3 +9,10 @@ class OrderForm(forms.ModelForm):
         widgets = {
             'items': forms.CheckboxSelectMultiple() 
         }
+
+
+class OrderEditForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['status']
+
