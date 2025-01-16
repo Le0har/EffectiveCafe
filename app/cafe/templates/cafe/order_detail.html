@@ -7,10 +7,40 @@
 {% block content %}
     <div class="container">
         <section>
-            <h1>Редактирование заказа</h1>
+            <div class="row">
+                <div class="col text-center">
+                    <h1>Редактирование заказа</h1>
+                    <hr>
+                </div>
+            </div>
+            <br>
+            <ul>
+                <li>
+                    <p>ID: {{ order.id }}</p>
+                    <p>Номер стола: {{ order.table_number }}</p>
+                    <p>Блюда:</p>
+                    <ul>   
+                        {% for item in order.items.all %}
+                            <li>
+                                <p>{{ item.name }} - {{ item.price }}р.</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <p>Статус: {{ order.get_status_display }}</p>
+                    <p>Дата создания: {{ order.created_at }}</p>
+                    <p>Стоимость: Какая-то цена</p>
+                </li>
+            </ul>
+            <br>
+            <div style="display: flex; flex-direction: row;">
+                <a href="{% url 'cafe:order-edit' order.id %}" class="btn btn-outline-primary">Редактировать статус</a>
+                &nbsp;
+                <form action="{% url 'cafe:order-delete' order.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger">Удалить</button>
+                </form>
+            </div>
 
-            <p>Тут будет редактироваться заказ</p>
-            
         </section>
     </div>
 

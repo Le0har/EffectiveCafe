@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Order, OrderItem
 from .forms import OrderForm
@@ -39,10 +39,8 @@ def order_detail(request, order_id):
         }
         return render(request, 'cafe/errors.html', context)
     else:
-        form = OrderForm()
         context = {
             'order': order,
-            'form': form,
         }
         return render(request, 'cafe/order_detail.html', context)
 
@@ -51,9 +49,12 @@ def order_find(request):
     return render(request, 'cafe/order_find.html')
 
 
-def order_edit(request):
+def order_edit(request, order_id):
     pass
 
 
-def order_delete(request):
-    pass
+def order_delete(request, order_id):
+    if request.method == 'POST':
+        order = get_object_or_404(Order, id=order_id)
+        order.delete()
+    return redirect('cafe:order-list')

@@ -7,7 +7,12 @@
 {% block content %}
     <div class="container">
         <section>
-            <h1>Создание заказа</h1>
+            <div class="row">
+                <div class="col text-center">
+                    <h1>Создание заказа</h1>
+                    <hr>
+                </div>
+            </div>
             <br>
             <div>
                 <form method="post">
@@ -18,7 +23,7 @@
                         <p><input type="checkbox" name="{{ food.name }}" value="{{ food.price }}"> 
                         {{ food.name }} - {{ food.price }}р.</p>
                     {% endfor %}
-
+                    <br>
                     <input type="submit" class="btn btn-outline-success btn-block" value="Создать"/>
                 </form>
             </div>
