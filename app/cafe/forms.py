@@ -16,3 +16,7 @@ class OrderEditForm(forms.ModelForm):
         model = Order
         fields = ['status']
 
+
+class SearchForm(forms.Form):
+    search_query = forms.IntegerField(label='Введите номер стола')
+

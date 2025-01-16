@@ -7,16 +7,16 @@
 {% block content %}
 {% load static %}
     <div class="container">
-        <!-- Title -->
         <div class="container text-center my-title">
             <div class="row">
                 <h1>Добро пожаловать в Наш кафетерий</h1>
             </div>
         </div>
-        <!-- Title -->
+        <div align="right">
+            <i style="color: gray;">Мы выполнили уже {{ total_count }} заказов на {{ total_price.value }} рублей в сумме!</i>
+        </div>
         <section>
             <img src="{% static 'images/home.webp' %}">
         </section>
     </div>
-
 {% endblock %}

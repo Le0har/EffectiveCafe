@@ -18,16 +18,10 @@
                 <form method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
-
-                    {% for food in foods %}
-                        <p><input type="checkbox" name="{{ food.name }}" value="{{ food.price }}"> 
-                        {{ food.name }} - {{ food.price }}р.</p>
-                    {% endfor %}
                     <br>
-                    <input type="submit" class="btn btn-outline-success btn-block" value="Создать"/>
+                    <input type="submit" class="btn btn-outline-success" value="Создать"/>
                 </form>
             </div>
         </section>
     </div>
-
 {% endblock %}

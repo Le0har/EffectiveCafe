@@ -29,24 +29,25 @@
                         </thead>
                         <tbody>
                             {% for order in orders %}
-                            <tr>
-                                <td>
-                                    <a href="{% url 'cafe:order-detail' order.id %}">{{ order.id }}</a>
-                                    <a href="{% url 'cafe:order-detail' order.id %}">
-                                    <i style="color: blue;" class="fa fa-edit"></i></a>
-                                </td>
-                                <td scope="row">{{ order.table_number }}</td>
-
-                                <td scope="row">
-                                    {% for item in order.items.all %}
-                                        <p>{{ item }}</p>
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'cafe:order-detail' order.id %}">{{ order.id }}
+                                        <i style="color: blue;" class="fa fa-edit"></i></a>
+                                    </td>
+                                    <td scope="row">{{ order.table_number }}</td>
+                                    <td scope="row">
+                                        {% for item in order.items.all %}
+                                            <p>{{ item }}</p>
+                                        {% endfor %}
+                                    </td>
+                                    <td>{{ order.get_status_display }}</td>
+                                    <td>{{ order.created_at }}</td>
+                                    {% for price in prices %}
+                                        {% if price == order %}
+                                            <td>{{ price.total_price }}</td>
+                                        {% endif %}
                                     {% endfor %}
-                                </td>
-
-                                <td>{{ order.get_status_display }}</td>
-                                <td>{{ order.created_at }}</td>
-                                <td>Какая-то цена</td>
-                            </tr>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -57,5 +58,4 @@
             </div>    
         </section>
     </div>
-
 {% endblock %}

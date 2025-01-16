@@ -28,7 +28,7 @@
                     </ul>
                     <p>Статус: {{ order.get_status_display }}</p>
                     <p>Дата создания: {{ order.created_at }}</p>
-                    <p>Стоимость: Какая-то цена</p>
+                    <p>Стоимость: {{ price.value }}</p>
                 </li>
             </ul>
             <br>
@@ -40,8 +40,6 @@
                     <button type="submit" class="btn btn-outline-danger">Удалить</button>
                 </form>
             </div>
-
         </section>
     </div>
-
 {% endblock %}

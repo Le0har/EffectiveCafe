@@ -14,29 +14,28 @@
                 </div>
             </div>
             <br>
-            <ul>
-                <li>
-                    <p>ID: {{ order.id }}</p>
-                    <p>Номер стола: {{ order.table_number }}</p>
-                    <p>Блюда:</p>
-                    <ul>   
-                        {% for item in order.items.all %}
-                            <li>
-                                <p>{{ item.name }} - {{ item.price }}р.</p>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    <form method="post">
-                        {% csrf_token %}
+            <form method="post">
+                {% csrf_token %}
+                <ul>
+                    <li>
+                        <p>ID: {{ order.id }}</p>
+                        <p>Номер стола: {{ order.table_number }}</p>
+                        <p>Блюда:</p>
+                        <ul>   
+                            {% for item in order.items.all %}
+                                <li>
+                                    <p>{{ item.name }} - {{ item.price }}р.</p>
+                                </li>
+                            {% endfor %}
+                        </ul>
                         {{ form.as_p }}
-                    <p>Дата создания: {{ order.created_at }}</p>
-                    <p>Стоимость: Какая-то цена</p>
-                </li>
-            </ul>
+                        <p>Дата создания: {{ order.created_at }}</p>
+                        <p>Стоимость: {{ price.value }}</p>
+                    </li>
+                </ul>
                 <br>
-                <input type="submit" class="btn btn-outline-success btn-block" value="Сохранить статус"/>
+                <input type="submit" class="btn btn-outline-success" value="Сохранить статус"/>
             </form>
         </section>
     </div>
-
 {% endblock %}
