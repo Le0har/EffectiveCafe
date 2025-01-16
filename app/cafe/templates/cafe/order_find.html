@@ -18,7 +18,8 @@
                 <div class="col">
                     <h4>Найти заказ по номеру стола</h4>
                     <br>
-                    <form action='' id="view_order_form">
+                    <form action='' id="view_order_form" method="post">
+                        {% csrf_token %}
                         <div class="form-group row">
                             <label for="order_table" class="col-sm-2 col-form-label col-form-label-lg">Номер стола:</label>
                             <div class="col-sm-8">

@@ -45,7 +45,14 @@ def order_detail(request, order_id):
         return render(request, 'cafe/order_detail.html', context)
 
 
-def order_find(request):
+def order_find(request): 
+    if request.method == 'POST':
+        context = {
+        'orders': Order.objects.all(),
+        }
+        data_form = request.POST
+        print('data_form', data_form)
+        return render(request, 'cafe/order_list.html', context)
     return render(request, 'cafe/order_find.html')
 
 
