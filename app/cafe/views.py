@@ -17,10 +17,9 @@ def index_page(request):
 
 def order_create(request):
     form = OrderForm(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('cafe:order-list')
+    if form.is_valid():
+        form.save()
+        return redirect('cafe:order-list')
     context = {
         'form': form,
     }
@@ -28,10 +27,8 @@ def order_create(request):
 
 
 def order_list(request):
-    q = Order.objects.annotate(total_price=Sum('items__price')).order_by('-created_at')
     context = {
         'orders': Order.objects.all().order_by('-created_at'),
-        'prices': q,
     }
     return render(request, 'cafe/order_list.html', context)
 
@@ -39,7 +36,6 @@ def order_list(request):
 def order_detail(request, order_id):
     try:
         order = Order.objects.get(id=order_id)
-        price = Order.objects.filter(id=order_id).aggregate(value=Sum('items__price'))
     except ObjectDoesNotExist:
         context = {
             'error': f'Заказ с ID = {order_id} не найден!'
@@ -48,23 +44,19 @@ def order_detail(request, order_id):
     else:
         context = {
             'order': order,
-            'price': price,
         }
         return render(request, 'cafe/order_detail.html', context)
 
 
 def order_find(request): 
     form = SearchForm(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            value = request.POST['search_query']
-            orders = Order.objects.filter(table_number=value).order_by('-created_at')
-            q = Order.objects.annotate(total_price=Sum('items__price')).order_by('-created_at')
-            context = {
-                'orders': orders,
-                'prices': q,
-            }
-            return render(request, 'cafe/order_list.html', context)
+    if form.is_valid():
+        value = request.POST['search_query']
+        orders = Order.objects.filter(table_number=value)
+        context = {
+            'orders': orders,
+        }
+        return render(request, 'cafe/order_list.html', context)
     context = {
         'form': form,
     }
@@ -73,15 +65,12 @@ def order_find(request):
 
 def order_edit(request, order_id):
     order = get_object_or_404(Order, id=order_id)
-    price = Order.objects.filter(id=order_id).aggregate(value=Sum('items__price'))
     form = OrderEditForm(request.POST or None, instance=order)
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save()
-            return redirect('cafe:order-list')
+    if form.is_valid():
+        form.save()
+        return redirect('cafe:order-list')
     context = {
         'order': order,
-        'price': price,
         'form': form,
     }
     return render(request, 'cafe/order_edit.html', context)

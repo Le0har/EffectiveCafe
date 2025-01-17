@@ -28,7 +28,7 @@
                     </ul>
                     <p>Статус: {{ order.get_status_display }}</p>
                     <p>Дата создания: {{ order.created_at }}</p>
-                    <p>Стоимость: {{ price.value }}</p>
+                    <p>Стоимость: {{ order.total_price}}</p>
                 </li>
             </ul>
             <br>

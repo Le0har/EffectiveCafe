@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from http import HTTPStatus
 from cafe.models import Order, OrderItem
+from cafe.forms import OrderForm
 
 
 class GetPagesTestCase(TestCase):
@@ -11,28 +12,34 @@ class GetPagesTestCase(TestCase):
         self.assertEqual(res.status_code, HTTPStatus.OK)
         self.assertTemplateUsed(res, 'cafe/index.html')
 
-    def test_ok_create_order_form(self):
+    def test_ok_enter_order_form(self):
         res = self.client.get(reverse('cafe:order-create'))  
         self.assertEqual(res.status_code, HTTPStatus.OK) 
         self.assertTemplateUsed(res, 'cafe/order_create.html')
 
-    def test_ok_create_order(self):
+
+class FillFormsTestCase(TestCase):
+
+    def setUp(self):
         item_data = {
             'name': 'Солянка сборная мясная',
             'price': 260.00
         }
         new_item = OrderItem.objects.create(**item_data)
-        item_data = {
+        item_data2 = {
             'name': 'Рассольник',
             'price': 210.00
         }
-        new_item2 = OrderItem.objects.create(**item_data)
-        order_data = {
+        new_item2 = OrderItem.objects.create(**item_data2)
+        self.order_data = {
             'table_number': 3,
-            'items': [new_item, new_item2]
+            'items': [new_item.pk, new_item2.pk]
         }
-        res = self.client.post(reverse('cafe:order-create'), order_data) 
-        print(res.__dict__) 
+
+    def test_ok_create_order(self):
+        form = OrderForm(data=self.order_data)
+        self.assertTrue(form.is_valid())
+        res = self.client.post(reverse('cafe:order-create'), self.order_data)
         self.assertEqual(res.status_code, HTTPStatus.FOUND)
         self.assertRedirects(res, reverse('cafe:order-list')) 
-        self.assertTrue(Order.objects.filter(table_number=order_data['table_number']).exists()) 
+        self.assertTrue(Order.objects.filter(table_number=self.order_data['table_number']).exists()) 
